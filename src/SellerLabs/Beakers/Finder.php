@@ -12,7 +12,7 @@
 namespace SellerLabs\Beakers;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use SellerLabs\Beakers\Exceptions\NotSoftDeletingTraitException;
 use SellerLabs\Beakers\Interfaces\FinderInterface;
@@ -28,7 +28,7 @@ use SellerLabs\Beakers\Interfaces\FinderInterface;
  */
 abstract class Finder implements FinderInterface
 {
-    /** @var  Eloquent|SoftDeletes */
+    /** @var  Model|SoftDeletes */
     protected $model;
 
     /**

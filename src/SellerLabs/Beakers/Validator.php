@@ -11,9 +11,8 @@
 
 namespace SellerLabs\Beakers;
 
+use Illuminate\Validation\Factory;
 use SellerLabs\Beakers\Interfaces\ValidatorInterface;
-use SellerLabs\Snagshout\Users\User;
-use Validator as Maker;
 
 /**
  * Class Validator
@@ -31,9 +30,18 @@ abstract class Validator implements ValidatorInterface
     protected $forbiddenKeys = [];
 
     /**
-     * @var User
+     * The array of custom attribute names.
+     *
+     * @var array
      */
-    protected $user;
+    protected $customAttributes = [];
+
+    /**
+     * The array of custom error messages.
+     *
+     * @var array
+     */
+    protected $customMessages = [];
 
     /**
      * @var \Illuminate\Validation\Validator
@@ -128,7 +136,12 @@ abstract class Validator implements ValidatorInterface
      */
     protected function make(array $values, array $rules)
     {
-        return Maker::make($values, $rules);
+        return $this->getFactory()->make(
+            $values,
+            $rules,
+            $this->customMessages,
+            $this->customAttributes
+        );
     }
 
     /**
@@ -147,20 +160,6 @@ abstract class Validator implements ValidatorInterface
         }
 
         return $return;
-    }
-
-    /**
-     * Set the user to validate for
-     *
-     * @param User $user
-     *
-     * @return $this
-     */
-    public function forUser(User $user)
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     /**
@@ -228,5 +227,13 @@ abstract class Validator implements ValidatorInterface
     protected function getRules()
     {
         return $this->rules;
+    }
+
+    /**
+     * @return Factory
+     */
+    protected function getFactory()
+    {
+        return app(Factory::class);
     }
 }
