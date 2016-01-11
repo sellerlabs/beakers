@@ -49,9 +49,9 @@ trait ModelTestTrait
     /**
      * Assert the the model defines a HasMany relationship.
      *
-     * @param $model
-     * @param $property
-     * @param $other
+     * @param Model $model
+     * @param string $property
+     * @param string $other
      */
     protected function assertHasMany($model, $property, $other)
     {
@@ -66,9 +66,9 @@ trait ModelTestTrait
     /**
      * Assert the the model defines a HasManyThrough relationship.
      *
-     * @param $model
-     * @param $property
-     * @param $other
+     * @param Model $model
+     * @param string $property
+     * @param string $other
      */
     protected function assertHasManyThrough($model, $property, $other)
     {
@@ -83,9 +83,9 @@ trait ModelTestTrait
     /**
      * Assert the the model defines a BelongsTo relationship.
      *
-     * @param $model
-     * @param $property
-     * @param $other
+     * @param Model $model
+     * @param string $property
+     * @param string $other
      */
     protected function assertBelongsTo($model, $property, $other)
     {
@@ -100,9 +100,9 @@ trait ModelTestTrait
     /**
      * Assert the the model defines a BelongsToMany relationship.
      *
-     * @param $model
-     * @param $property
-     * @param $other
+     * @param Model $model
+     * @param string $property
+     * @param string $other
      */
     protected function assertBelongsToMany($model, $property, $other)
     {
@@ -118,7 +118,7 @@ trait ModelTestTrait
      * Assert the the model defines a given relationship.
      *
      * @param string $relationClass
-     * @param string $model
+     * @param Model $model
      * @param string $property
      * @param string $other
      */
