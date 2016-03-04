@@ -16,9 +16,10 @@ use SellerLabs\Beakers\Validator;
 /**
  * Class ValidatorTestTrait.
  *
- * Required params:
- * @param array $validData a list of valid values that should succeed
- * @param array $invalidData a list of invalid values that should fail
+ * Required properties
+ *
+ * @property array $validData a list of valid values that should succeed
+ * @property array $invalidData a list of invalid values that should fail
  * @method Validator make()
  *
  * @author Mark Vaughn <mark@roundsphere.com>
@@ -26,10 +27,6 @@ use SellerLabs\Beakers\Validator;
  */
 trait ValidatorTestTrait
 {
-
-    protected $validData = [];
-    protected $invalidData = [];
-
     public function testSuccess()
     {
         $validator = $this->make();
@@ -71,8 +68,8 @@ trait ValidatorTestTrait
     /**
      * Fail each field individually
      *
-     * @param $valid
-     * @param $invalid
+     * @param array $valid
+     * @param array $invalid
      * @param Validator $validator
      */
     protected function failEachOnce($valid, $invalid, Validator $validator)

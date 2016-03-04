@@ -17,6 +17,7 @@ use ReflectionClass;
 /**
  * Class ServiceProviderTestTrait
  *
+ * @property string $className
  * @method ServiceProvider make()
  *
  * @author Mark Vaughn <mark@roundsphere.com>
@@ -24,8 +25,6 @@ use ReflectionClass;
  */
 trait ServiceProviderTestTrait
 {
-
-
     public function testRegister()
     {
         $instance = $this->make();

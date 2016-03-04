@@ -11,19 +11,27 @@
 
 namespace SellerLabs\Beakers\Traits;
 
+use SellerLabs\Beakers\Interfaces\FinderInterface;
+
 /**
  * Trait FinderTestTrait.
+ *
+ * @property string $model
+ * @property string $className
+ * @method FinderInterface make()
  *
  * @author Mark Vaughn <mark@roundsphere.com>
  * @package SellerLabs\Beakers\Traits
  */
 trait FinderTestTrait
 {
-    protected $model;
+    public function testConstructor()
+    {
+        $finder = $this->make();
 
-    /**
-     * Test that the finder has the right methods
-     */
+        $this->assertInstanceOf(FinderInterface::class, $finder);
+    }
+
     public function testHasFinderMethods()
     {
         $this->assertTrue(
@@ -35,9 +43,6 @@ trait FinderTestTrait
         );
     }
 
-    /**
-     * Test that the finder has the right model associated
-     */
     public function testModelIsSet()
     {
         $this->assertTrue(
