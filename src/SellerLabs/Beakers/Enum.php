@@ -48,7 +48,7 @@ abstract class Enum
     }
 
     /**
-     * Check weather the value is part of this enum
+     * Check weather the value is part of this enum.
      *
      * @param $value
      *
@@ -57,5 +57,15 @@ abstract class Enum
     public static function isValueValid($value)
     {
         return in_array($value, self::getConstants());
+    }
+
+    /**
+     * Returns the values as a laravel validation rule.
+     *
+     * @return string
+     */
+    public static function validationRule()
+    {
+        return 'in:'. implode(',', static::getConstants());
     }
 }
