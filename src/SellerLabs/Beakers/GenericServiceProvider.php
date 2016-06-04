@@ -75,23 +75,29 @@ abstract class GenericServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register()
     {
-        foreach ($this->bindings as $interface => $class) {
+        foreach ($this->getBindings() as $interface => $class) {
             $this->app->bind($interface, $class);
         }
     }
 
     /**
-     * Provide a list of services provided
+     * @return array a list of interface/client pairs
+     */
+    protected function getBindings()
+    {
+        return $this->bindings;
+    }
+
+    /**
+     * Provide a list of services provided.
      *
      * @return array
      */
     public function provides()
     {
-        return array_keys($this->bindings);
+        return array_keys($this->getBindings());
     }
 }
