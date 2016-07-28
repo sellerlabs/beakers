@@ -11,6 +11,7 @@
 
 namespace SellerLabs\Beakers\Traits;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -173,6 +174,33 @@ trait ModelTestTrait
                 break;
             case RelationType::BELONGS_TO_MANY:
                 $this->assertBelongsToMany($model, $property, $other);
+                break;
+        }
+    }
+
+
+    /**
+     * Tests relationship are connected to correct tables through correct keys.
+     *
+     * @param string $property
+     * @param string $type
+     * @param string $other
+     *
+     * @dataProvider relationsProvider
+     */
+    public function testRelationCanLoad($property, $type, $other)
+    {
+        $model = $this->make();
+
+        switch ($type) {
+            case RelationType::HAS_ONE:
+            case RelationType::BELONGS_TO:
+                $this->assertTrue(is_null($model->$property));
+                break;
+            case RelationType::HAS_MANY:
+            case RelationType::HAS_MANY_THROUGH:
+            case RelationType::BELONGS_TO_MANY:
+                $this->assertTrue($model->$property instanceof Collection);
                 break;
         }
     }
