@@ -24,7 +24,7 @@ trait StaticMethodAccess
     /**
      * Get the method name from Laravel's perspective.
      *
-     * @param $name
+     * @param string $name
      *
      * @throws NotImplementedException
      * @return string
