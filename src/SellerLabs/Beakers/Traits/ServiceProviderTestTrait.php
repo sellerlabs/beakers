@@ -28,7 +28,7 @@ use SellerLabs\Beakers\Exceptions\NotImplementedException;
  */
 trait ServiceProviderTestTrait
 {
-       /**
+    /**
      * Make an instance of the service provider being tested.
      *
      * @throws NotImplementedException
