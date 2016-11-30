@@ -11,12 +11,15 @@
 
 namespace SellerLabs\Beakers\Traits;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use ReflectionClass;
+use SellerLabs\Beakers\Exceptions\NotImplementedException;
 
 /**
  * Class ServiceProviderTestTrait
  *
+ * @property Application $app
  * @property string $className
  * @method ServiceProvider make()
  *
@@ -25,6 +28,25 @@ use ReflectionClass;
  */
 trait ServiceProviderTestTrait
 {
+       /**
+     * Make an instance of the service provider being tested.
+     *
+     * @throws NotImplementedException
+     * @return ServiceProvider
+     */
+    public function make()
+    {
+        if ($this->className) {
+            $class = $this->className;
+
+            return new $class($this->app);
+        }
+
+        throw new NotImplementedException(
+            'className is not set: overload `make` or set the className property.'
+        );
+    }
+
     public function testRegister()
     {
         $instance = $this->make();
@@ -34,7 +56,7 @@ trait ServiceProviderTestTrait
 
         foreach ($shouldBeBound as $abstract) {
             $this->assertTrue(
-                $this->mockApp->bound($abstract),
+                $this->app->bound($abstract),
                 "Class " . $abstract . " is not bound."
             );
         }
@@ -43,7 +65,7 @@ trait ServiceProviderTestTrait
         // they have
         $namespace = (new ReflectionClass($this->className))
             ->getNamespaceName();
-        $keys = array_keys($this->mockApp->getBindings());
+        $keys = array_keys($this->app->getBindings());
         array_walk(
             $keys,
             function ($bound) use ($namespace, $shouldBeBound) {
