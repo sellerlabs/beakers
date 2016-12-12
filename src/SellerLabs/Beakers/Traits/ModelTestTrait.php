@@ -13,7 +13,6 @@ namespace SellerLabs\Beakers\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -153,7 +152,7 @@ trait ModelTestTrait
     {
         $relations = $this->relationsProvider();
         $model = $this->make()->getRelations();
-        $this->assertEquals(count($model) ,count($relations));
+        $this->assertEquals(count($model), count($relations));
     }
 
     /**
@@ -169,9 +168,11 @@ trait ModelTestTrait
     {
         $model = $this->make();
 
-        if(!in_array($property, $model->getRelations())){
-            throw RelationNotFoundException::make($this->class, $property);
-        }
+        $this->assertContains(
+            $property,
+            $model->getRelations(),
+            "[{$property}] not defined in [" . $this->className . ']'
+        );
 
         switch ($type) {
             case RelationType::HAS_ONE:
@@ -191,7 +192,6 @@ trait ModelTestTrait
                 break;
         }
     }
-
 
     /**
      * Tests relationship are connected to correct tables through correct keys.
