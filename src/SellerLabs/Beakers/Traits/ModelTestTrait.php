@@ -129,7 +129,6 @@ trait ModelTestTrait
         $property,
         $other
     ) {
-
         $this->assertTrue(method_exists($model, $property));
 
         /** @var HasManyThrough $relation */
@@ -147,6 +146,16 @@ trait ModelTestTrait
     abstract public function relationsProvider();
 
     /**
+     * Checks if all relations are covered.
+     */
+    public function testAllRelationsCovered()
+    {
+        $relations = $this->relationsProvider();
+        $model = $this->make()->getRelations();
+        $this->assertEquals(count($model), count($relations));
+    }
+
+    /**
      * Tests relationship definitions.
      *
      * @param string $property
@@ -158,6 +167,12 @@ trait ModelTestTrait
     public function testRelations($property, $type, $other)
     {
         $model = $this->make();
+
+        $this->assertContains(
+            $property,
+            $model->getRelations(),
+            "[{$property}] not defined in [" . $this->className . ']'
+        );
 
         switch ($type) {
             case RelationType::HAS_ONE:
@@ -177,7 +192,6 @@ trait ModelTestTrait
                 break;
         }
     }
-
 
     /**
      * Tests relationship are connected to correct tables through correct keys.
