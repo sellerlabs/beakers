@@ -225,7 +225,10 @@ trait ModelTestTrait
         switch ($type) {
             case RelationType::HAS_ONE:
             case RelationType::BELONGS_TO:
-                $this->assertTrue(is_null($model->$property));
+                $this->assertTrue(
+                    is_null($model->$property)
+                    || $model->$property instanceof $other
+                );
                 break;
             case RelationType::HAS_MANY:
             case RelationType::HAS_MANY_THROUGH:
