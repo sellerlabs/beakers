@@ -152,7 +152,23 @@ trait ModelTestTrait
     {
         $relations = $this->relationsProvider();
         $model = $this->make()->getRelations();
-        $this->assertEquals(count($model), count($relations));
+        $this->assertEquals(
+            count($model),
+            count($relations),
+            implode(
+                ',',
+                array_diff(
+                    $model,
+                    array_map(
+                        function ($relation) {
+                            return $relation[0];
+                        },
+                        $relations
+                    )
+
+                )
+            ) . ' missing'
+        );
     }
 
     /**
