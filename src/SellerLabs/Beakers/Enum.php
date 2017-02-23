@@ -16,7 +16,8 @@ use ReflectionClass;
 /**
  * Class Enum
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
+ *
  * @package SellerLabs\Snagshout\Support
  */
 abstract class Enum
@@ -31,6 +32,26 @@ abstract class Enum
         $self = new ReflectionClass(static::class);
 
         return $self->getConstants();
+    }
+
+    /**
+     * Returns an array (numeric index) with all the enum key names.
+     *
+     * @return array
+     */
+    public static function getKeys()
+    {
+        return array_keys(static::getConstants());
+    }
+
+    /**
+     * Returns an array (numeric index) with all the possible enum values.
+     *
+     * @return array
+     */
+    public static function getValues()
+    {
+        return array_values(static::getConstants());
     }
 
     /**
