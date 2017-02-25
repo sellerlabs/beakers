@@ -2,8 +2,11 @@
   "name": "sellerlabs/beakers",
   "description": "Interfaces and abstracts to share amongst Seller Labs products",
   "require": {
+    "php": ">=7.0.0",
     "sellerlabs/quip": "^0.1.3",
-    "laravel/framework": "5.*"
+    "laravel/framework": "5.*",
+    "mockery/mockery": "^0.9.8",
+    "php-ds/php-ds": "^1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "*"
