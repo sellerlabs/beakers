@@ -14,6 +14,10 @@ namespace SellerLabs\Beakers\Hashing;
 /**
  * Class HmacHasher.
  *
+ * This class simply provides HMAC hashing as a service, for other components to
+ * use without worrying about the actual implementation. This class can be used
+ * to implement HMAC-based authentication middleware.
+ *
  * @author Eduardo Trujillo <ed@sellerlabs.com>
  *
  * @package SellerLabs\Beakers\Hashing
